@@ -1,2 +1,54 @@
-package com.rsxxi.apirsxxi.controllers;public class UsuarioController {
+package com.rsxxi.apirsxxi.controllers;
+
+import com.rsxxi.apirsxxi.connection.Conexion;
+import com.rsxxi.apirsxxi.models.Usuario;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+
+@RestController
+public class UsuarioController {
+    private Connection configuracion() throws SQLException {
+        Conexion con = new Conexion(
+                "jdbc:oracle:thin:@localhost:1521:XE",
+                "RSXXI",
+                "rsxxi"
+        );
+        return con.obtenerConexion();
+    }
+
+    @RequestMapping(value = "api/conexion", method = RequestMethod.GET)
+    public boolean prueba() throws SQLException {
+        Conexion con = new Conexion(
+                "jdbc:oracle:thin:@localhost:1521:XE",
+                "RSXXI",
+                "rsxxi"
+        );
+        return con.obtenerConexion() != null;
+    }
+
+    @RequestMapping(value = "api/registro", method = RequestMethod.POST)
+    public void registrarUsuarios(@RequestBody Usuario usuario) throws SQLException {
+        Connection con = configuracion();
+        // Llamar al procedimiento que se va a usar
+        CallableStatement sp = con.prepareCall("{call SP_REGISTRO(?,?,?,?,?,?,?,?)}");
+        // Asignar los parametros
+        sp.setInt("P_idUsuario", usuario.getIdUsuario());
+        sp.setString("P_idTipoUsuario", usuario.getIdTipoUsuario());
+        sp.setString("P_correo", usuario.getCorreo());
+        sp.setString("P_contrasena", usuario.getContrasena());
+        sp.setString("P_nombre", usuario.getNombre());
+        sp.setString("P_apellido", usuario.getApellido());
+        sp.setString("P_direccion", usuario.getDireccion());
+        sp.setString("P_run", usuario.getRun());
+        // Ejecutar procedimiento
+        sp.execute();
+        // Cerrar conexion
+        con.close();
+    }
 }
