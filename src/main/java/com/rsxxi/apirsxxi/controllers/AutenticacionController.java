@@ -18,18 +18,18 @@ public class AutenticacionController {
         Conexion con = new Conexion(
                 "jdbc:oracle:thin:@localhost:1521:XE",
                 "RSXXI",
-                "rsxxi"
+                "123"
         );
         return con.obtenerConexion();
     }
 
     @RequestMapping(value = "api/login", method = RequestMethod.POST)
     public Usuario login(@RequestBody Usuario usuario) throws SQLException {
-        System.out.println(usuario.getIdUsuario());
+        System.out.println(usuario.getCorreo());
         Connection con = configuracion();
         Statement st = con.createStatement();
         // Generar query
-        String query = String.format("SELECT * FROM USUARIO WHERE IDUSUARIO = %d", usuario.getIdUsuario());
+        String query = String.format("SELECT * FROM USUARIO WHERE CORREO = '%s'", usuario.getCorreo());
         ResultSet res = st.executeQuery(query);
         // comprobar usuario
         Usuario aux = new Usuario();
