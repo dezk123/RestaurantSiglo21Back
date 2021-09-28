@@ -1,5 +1,10 @@
 package com.rsxxi.apirsxxi.models;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class Usuario {
     private int idUsuario;
 
@@ -93,4 +98,24 @@ public class Usuario {
     public void setRun(String run) {
         this.run = run;
     }
+
+    public Usuario buscarUsuario(Connection con, String correo) throws SQLException {
+        Usuario aux = new Usuario();
+        Statement statement = con.createStatement();
+        String query = String.format("SELECT * FROM USUARIO WHERE CORREO = '%s'", correo);
+        ResultSet resultSet = statement.executeQuery(query);
+        while (resultSet.next()) {
+            aux.setIdUsuario(resultSet.getInt(1));
+            aux.setIdTipoUsuario(resultSet.getString(2));
+            aux.setCorreo(resultSet.getString(3));
+            aux.setContrasena(resultSet.getString(4));
+            aux.setNombre(resultSet.getString(5));
+            aux.setApellido(resultSet.getString(6));
+            aux.setDireccion(resultSet.getString(7));
+            aux.setRun(resultSet.getString(8));
+        }
+        return aux;
+    }
+
+
 }

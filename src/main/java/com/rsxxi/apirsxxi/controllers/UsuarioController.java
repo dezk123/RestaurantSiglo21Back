@@ -15,6 +15,7 @@ import java.sql.SQLException;
 
 @RestController
 public class UsuarioController {
+
     private Connection configuracion() throws SQLException {
         Conexion con = new Conexion(
                 "jdbc:oracle:thin:@localhost:1521:XE",
@@ -57,4 +58,5 @@ public class UsuarioController {
         }
         return false;
     }
+
 }
