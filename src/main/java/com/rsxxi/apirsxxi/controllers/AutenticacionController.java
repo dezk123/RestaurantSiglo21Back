@@ -6,14 +6,12 @@ import com.rsxxi.apirsxxi.utils.JWTUtil;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
 
 @RestController
+@CrossOrigin(origins = {"https://localhost:5001/"}, methods = { RequestMethod.POST })
 public class AutenticacionController {
 
     private Connection configuracion() throws SQLException {
