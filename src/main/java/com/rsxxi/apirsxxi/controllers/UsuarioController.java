@@ -18,7 +18,7 @@ public class UsuarioController {
 
     private Connection configuracion() throws SQLException {
         Conexion con = new Conexion(
-                "jdbc:oracle:thin:@localhost:1521:XE",
+                "jdbc:oracle:thin:@3.15.193.194:49161:XE",
                 "RSXXI",
                 "123"
         );
@@ -40,10 +40,9 @@ public class UsuarioController {
             usuario.setContrasena(hash);
             Connection con = configuracion();
             // Llamar al procedimiento que se va a usar
-            CallableStatement sp = con.prepareCall("{call SP_REGISTRO(?,?,?,?,?,?,?,?)}");
+            CallableStatement sp = con.prepareCall("{call SP_REGISTRO(?,?,?,?,?,?,?)}");
             // Asignar los parametros
-            sp.setInt("P_idUsuario", usuario.getIdUsuario());
-            sp.setString("P_idTipoUsuario", usuario.getIdTipoUsuario());
+            sp.setString("P_idTipoUsuario", "CLI");
             sp.setString("P_correo", usuario.getCorreo());
             sp.setString("P_contrasena", usuario.getContrasena());
             sp.setString("P_nombre", usuario.getNombre());

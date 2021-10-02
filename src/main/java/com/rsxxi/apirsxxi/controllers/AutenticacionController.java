@@ -16,7 +16,7 @@ public class AutenticacionController {
 
     private Connection configuracion() throws SQLException {
         Conexion con = new Conexion(
-                "jdbc:oracle:thin:@localhost:1521:XE",
+                "jdbc:oracle:thin:@3.15.193.194:49161:XE",
                 "RSXXI",
                 "123"
         );
@@ -28,14 +28,14 @@ public class AutenticacionController {
 
     @RequestMapping(value = "api/login", method = RequestMethod.POST)
     public String login(@RequestBody Usuario usuario) throws SQLException {
-        System.out.println(usuario.getCorreo());
+        // System.out.println(usuario.getCorreo());
         Connection con = configuracion();
         Usuario aux = new Usuario();
         aux = aux.buscarUsuario(con, usuario.getCorreo());
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
         if(argon2.verify(aux.getContrasena(), usuario.getContrasena())){
             // retornar token
-            return jwtUtil.create(String.valueOf(aux.getIdUsuario()), aux.getCorreo());
+            return jwtUtil.create(aux.getCorreo(), aux.getIdTipoUsuario());
         }
         return "ERROR";
     }
