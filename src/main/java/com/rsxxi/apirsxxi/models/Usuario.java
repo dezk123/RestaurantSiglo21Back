@@ -1,25 +1,37 @@
 package com.rsxxi.apirsxxi.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Usuario {
+
+    @Getter @Setter
     private int idUsuario;
 
+    @Getter @Setter
     private String idTipoUsuario;
 
+    @Getter @Setter
     private String correo;
 
+    @Getter @Setter
     private String contrasena;
 
+    @Getter @Setter
     private String nombre;
 
+    @Getter @Setter
     private String apellido;
 
+    @Getter @Setter
     private String direccion;
 
+    @Getter @Setter
     private String run;
 
     public Usuario(){}
@@ -32,70 +44,6 @@ public class Usuario {
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
-        this.run = run;
-    }
-
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public String getIdTipoUsuario() {
-        return idTipoUsuario;
-    }
-
-    public void setIdTipoUsuario(String idTipoUsuario) {
-        this.idTipoUsuario = idTipoUsuario;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
-    public String getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-
-    public String getRun() {
-        return run;
-    }
-
-    public void setRun(String run) {
         this.run = run;
     }
 

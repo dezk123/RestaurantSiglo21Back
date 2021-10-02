@@ -1,14 +1,31 @@
 package com.rsxxi.apirsxxi.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
 public class Empleado {
+
+    @Getter @Setter
     private int idEmpleado;
+
+    @Getter @Setter
     private int idUsuario;
+
+    @Getter @Setter
     private String idTipoUsuario;
+
+    @Getter @Setter
     private int sueldo;
+
+    @Getter @Setter
     private int empleadoJefe;
+
+    @Getter @Setter
     private Date fechaContrato;
+
+    @Getter @Setter
     private String numeroContacto;
 
     public Empleado(){}
@@ -20,62 +37,6 @@ public class Empleado {
         this.sueldo = sueldo;
         this.empleadoJefe = empleadoJefe;
         this.fechaContrato = fechaContrato;
-        this.numeroContacto = numeroContacto;
-    }
-
-    public int getIdEmpleado() {
-        return idEmpleado;
-    }
-
-    public void setIdEmpleado(int idEmpleado) {
-        this.idEmpleado = idEmpleado;
-    }
-
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public String getIdTipoUsuario() {
-        return idTipoUsuario;
-    }
-
-    public void setIdTipoUsuario(String idTipoUsuario) {
-        this.idTipoUsuario = idTipoUsuario;
-    }
-
-    public int getSueldo() {
-        return sueldo;
-    }
-
-    public void setSueldo(int sueldo) {
-        this.sueldo = sueldo;
-    }
-
-    public int getEmpleadoJefe() {
-        return empleadoJefe;
-    }
-
-    public void setEmpleadoJefe(int empleadoJefe) {
-        this.empleadoJefe = empleadoJefe;
-    }
-
-    public Date getFechaContrato() {
-        return fechaContrato;
-    }
-
-    public void setFechaContrato(Date fechaContrato) {
-        this.fechaContrato = fechaContrato;
-    }
-
-    public String getNumeroContacto() {
-        return numeroContacto;
-    }
-
-    public void setNumeroContacto(String numeroContacto) {
         this.numeroContacto = numeroContacto;
     }
 }
