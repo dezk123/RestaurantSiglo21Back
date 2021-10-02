@@ -3,13 +3,12 @@ package com.rsxxi.apirsxxi.controllers;
 import com.rsxxi.apirsxxi.connection.Conexion;
 import com.rsxxi.apirsxxi.models.Usuario;
 import com.rsxxi.apirsxxi.utils.JWTUtil;
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,19 +30,14 @@ public class AdministradorController {
     @RequestMapping(value = "api/usuarios", method = RequestMethod.GET)
     public List<Usuario> usuarios(@RequestHeader(value = "Authorization") String token) throws SQLException {
         String idTipoUsuario = jwtUtil.getValue(token);
-
-        if(idTipoUsuario == null){ return new ArrayList<>(); }
-
+        if(idTipoUsuario == null){ return null; }
         // Comprobar tipo de usuario
-        if(!idTipoUsuario.equals("ADM")){ return new ArrayList<>(); }
-
+        if(!idTipoUsuario.equals("ADM")){ return null; }
         Connection con = configuracion();
         Statement statement = con.createStatement();
-        List<Usuario> usuarios = new ArrayList<Usuario>();
-
+        List<Usuario> usuarios = new ArrayList<>();
         String query = "SELECT * FROM USUARIO WHERE IDTIPOUSUARIO = 'CLI'";
         ResultSet resultSet = statement.executeQuery(query);
-
         while (resultSet.next()){
             Usuario aux = new Usuario(
                     resultSet.getInt(1),
@@ -57,7 +51,34 @@ public class AdministradorController {
             );
             usuarios.add(aux);
         }
-
         return usuarios;
+    }
+
+    @RequestMapping(value = "api/registro/empleado", method = RequestMethod.POST)
+    public boolean registrarEmpleado(@RequestBody Usuario usuario,
+                                     @RequestHeader(value = "Authorization") String token) throws SQLException {
+        String idTipoUsuario = jwtUtil.getValue(token);
+        if (idTipoUsuario == null) { return false; }
+        if (!idTipoUsuario.equals("ADM")) { return false; }
+
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        String hash = argon2.hash(1, 1024, 1, usuario.getContrasena());
+        usuario.setContrasena(hash);
+
+        Connection connection = configuracion();
+        CallableStatement sp = connection.prepareCall("{call SP_REGISTRO(?,?,?,?,?,?,?)}");
+        sp.setString("P_idTipoUsuario", usuario.getIdTipoUsuario());
+        sp.setString("P_correo", usuario.getCorreo());
+        sp.setString("P_contrasena", usuario.getContrasena());
+        sp.setString("P_nombre", usuario.getNombre());
+        sp.setString("P_apellido", usuario.getApellido());
+        sp.setString("P_direccion", usuario.getDireccion());
+        sp.setString("P_run", usuario.getRun());
+        // Ejecutar procedimiento
+        sp.execute();
+        // Cerrar conexion
+        connection.close();
+        return true;
+
     }
 }
