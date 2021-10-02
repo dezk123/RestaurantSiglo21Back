@@ -28,6 +28,7 @@ public class AdministradorController {
     return con.obtenerConexion();
   }
 
+  // Obtener todos los usuarios
   @RequestMapping(value = "api/usuarios", method = RequestMethod.GET)
   public List<Usuario> obtenerUsuarios(@RequestHeader(value = "Authorization") String token) throws SQLException {
     String idTipoUsuario = jwtUtil.getValue(token);
@@ -55,8 +56,9 @@ public class AdministradorController {
     return usuarios;
   }
 
+  // Registrar empleados
   @RequestMapping(value = "api/registro/empleado", method = RequestMethod.POST)
-  public boolean registrarEmpleado(@RequestBody Usuario usuario,
+  public boolean registrarEmpleados(@RequestBody Usuario usuario,
                                    @RequestHeader(value = "Authorization") String token) throws SQLException {
     String idTipoUsuario = jwtUtil.getValue(token);
     if (idTipoUsuario == null) { return false; }
@@ -82,6 +84,7 @@ public class AdministradorController {
     return true;
   }
 
+  // Obtener todos los productos
   @RequestMapping(value = "api/productos", method = RequestMethod.GET)
   public List<Producto> obtenerProductos(@RequestHeader(value = "Authorization") String token) throws SQLException {
     String idTipoUsuario = jwtUtil.getValue(token);
@@ -105,5 +108,23 @@ public class AdministradorController {
     return productos;
   }
 
-
+  // Obtener producto por id
+  @RequestMapping(value = "api/productos/{id}", method = RequestMethod.GET)
+  public Producto obtenerProducto(@RequestHeader(value = "Authorization") String token,
+                             @PathVariable int id) throws SQLException {
+    String idTipoUsuario = jwtUtil.getValue(token);
+    if (idTipoUsuario == null) { return null; }
+    if (!idTipoUsuario.equals("ADM")) { return null; }
+    Connection connection = configuracion();
+    Statement statement = connection.createStatement();
+    String query = String.format("SELECT * FROM PRODUCTO WHERE IDPRODUCTO = %d", id);
+    ResultSet resultSet = statement.executeQuery(query);
+    return new Producto(
+        resultSet.getInt(1),
+        resultSet.getInt(2),
+        resultSet.getString(3),
+        resultSet.getInt(4),
+        resultSet.getInt(5)
+    );
+  }
 }
