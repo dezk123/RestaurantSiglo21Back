@@ -14,29 +14,29 @@ import java.sql.*;
 @CrossOrigin(origins = {"https://localhost:5001/"}, methods = { RequestMethod.POST })
 public class AutenticacionController {
 
-    private Connection configuracion() throws SQLException {
-        Conexion con = new Conexion(
-                "jdbc:oracle:thin:@3.15.193.194:49161:XE",
-                "RSXXI",
-                "123"
-        );
-        return con.obtenerConexion();
-    }
+  private Connection configuracion() throws SQLException {
+    Conexion con = new Conexion(
+        "jdbc:oracle:thin:@3.15.193.194:49161:XE",
+        "RSXXI",
+        "123"
+    );
+    return con.obtenerConexion();
+  }
 
-    @Autowired
-    private JWTUtil jwtUtil;
+  @Autowired
+  private JWTUtil jwtUtil;
 
-    @RequestMapping(value = "api/login", method = RequestMethod.POST)
-    public String login(@RequestBody Usuario usuario) throws SQLException {
-        // System.out.println(usuario.getCorreo());
-        Connection con = configuracion();
-        Usuario aux = new Usuario();
-        aux = aux.buscarUsuario(con, usuario.getCorreo());
-        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-        if(argon2.verify(aux.getContrasena(), usuario.getContrasena())){
-            // retornar token
-            return jwtUtil.create(aux.getCorreo(), aux.getIdTipoUsuario());
-        }
-        return "ERROR";
+  @RequestMapping(value = "api/login", method = RequestMethod.POST)
+  public String login(@RequestBody Usuario usuario) throws SQLException {
+    // System.out.println(usuario.getCorreo());
+    Connection con = configuracion();
+    Usuario aux = new Usuario();
+    aux = aux.buscarUsuario(con, usuario.getCorreo());
+    Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+    if(argon2.verify(aux.getContrasena(), usuario.getContrasena())){
+      // retornar token
+      return jwtUtil.create(aux.getCorreo(), aux.getIdTipoUsuario());
     }
+    return "ERROR";
+  }
 }

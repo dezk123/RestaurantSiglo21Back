@@ -1,81 +1,42 @@
 package com.rsxxi.apirsxxi.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 
 public class Empleado {
-    private int idEmpleado;
-    private int idUsuario;
-    private String idTipoUsuario;
-    private int sueldo;
-    private int empleadoJefe;
-    private Date fechaContrato;
-    private String numeroContacto;
 
-    public Empleado(){}
+  @Getter @Setter
+  private int idEmpleado;
 
-    public Empleado(int idEmpleado, int idUsuario, String idTipoUsuario, int sueldo, int empleadoJefe, Date fechaContrato, String numeroContacto) {
-        this.idEmpleado = idEmpleado;
-        this.idUsuario = idUsuario;
-        this.idTipoUsuario = idTipoUsuario;
-        this.sueldo = sueldo;
-        this.empleadoJefe = empleadoJefe;
-        this.fechaContrato = fechaContrato;
-        this.numeroContacto = numeroContacto;
-    }
+  @Getter @Setter
+  private int idUsuario;
 
-    public int getIdEmpleado() {
-        return idEmpleado;
-    }
+  @Getter @Setter
+  private String idTipoUsuario;
 
-    public void setIdEmpleado(int idEmpleado) {
-        this.idEmpleado = idEmpleado;
-    }
+  @Getter @Setter
+  private int sueldo;
 
-    public int getIdUsuario() {
-        return idUsuario;
-    }
+  @Getter @Setter
+  private int empleadoJefe;
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
+  @Getter @Setter
+  private Date fechaContrato;
 
-    public String getIdTipoUsuario() {
-        return idTipoUsuario;
-    }
+  @Getter @Setter
+  private String numeroContacto;
 
-    public void setIdTipoUsuario(String idTipoUsuario) {
-        this.idTipoUsuario = idTipoUsuario;
-    }
+  public Empleado(){}
 
-    public int getSueldo() {
-        return sueldo;
-    }
-
-    public void setSueldo(int sueldo) {
-        this.sueldo = sueldo;
-    }
-
-    public int getEmpleadoJefe() {
-        return empleadoJefe;
-    }
-
-    public void setEmpleadoJefe(int empleadoJefe) {
-        this.empleadoJefe = empleadoJefe;
-    }
-
-    public Date getFechaContrato() {
-        return fechaContrato;
-    }
-
-    public void setFechaContrato(Date fechaContrato) {
-        this.fechaContrato = fechaContrato;
-    }
-
-    public String getNumeroContacto() {
-        return numeroContacto;
-    }
-
-    public void setNumeroContacto(String numeroContacto) {
-        this.numeroContacto = numeroContacto;
-    }
+  public Empleado(int idEmpleado, int idUsuario, String idTipoUsuario, int sueldo, int empleadoJefe, Date fechaContrato, String numeroContacto) {
+    this.idEmpleado = idEmpleado;
+    this.idUsuario = idUsuario;
+    this.idTipoUsuario = idTipoUsuario;
+    this.sueldo = sueldo;
+    this.empleadoJefe = empleadoJefe;
+    this.fechaContrato = fechaContrato;
+    this.numeroContacto = numeroContacto;
+  }
 }
