@@ -2,8 +2,10 @@ package com.rsxxi.apirsxxi.controllers;
 
 import com.rsxxi.apirsxxi.connection.Conexion;
 import com.rsxxi.apirsxxi.models.Usuario;
+import com.rsxxi.apirsxxi.utils.JWTUtil;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.CallableStatement;
@@ -14,6 +16,9 @@ import java.sql.SQLException;
 @CrossOrigin(origins = {"https://localhost:5001/"}, methods = { RequestMethod.GET, RequestMethod.POST })
 public class UsuarioController {
 
+  @Autowired
+  private JWTUtil jwtUtil;
+
   private Connection configuracion() throws SQLException {
     Conexion con = new Conexion(
         "jdbc:oracle:thin:@3.15.193.194:49161:XE",
@@ -23,12 +28,14 @@ public class UsuarioController {
     return con.obtenerConexion();
   }
 
+  // Comprobar conexion con la base de datos
   @RequestMapping(value = "api/conexion", method = RequestMethod.GET)
   public boolean prueba() throws SQLException {
     Connection con = configuracion();
     return con != null;
   }
 
+  // Registro de usuario
   @RequestMapping(value = "api/registro", method = RequestMethod.POST)
   public String registrarUsuarios(@RequestBody Usuario usuario) throws SQLException {
     if (usuario != null){
@@ -56,4 +63,9 @@ public class UsuarioController {
     return "Usuario no registrado";
   }
 
+  // Comprobar el tipo de usuario a traves del token
+  @RequestMapping(value = "api/usuario/tipousuario")
+  public String obtenerTipoUsuario(@RequestHeader(value = "Athorization") String token) {
+    return jwtUtil.getValue(token);
+  }
 }
