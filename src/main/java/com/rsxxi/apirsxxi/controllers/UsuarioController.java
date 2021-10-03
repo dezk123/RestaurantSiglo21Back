@@ -21,7 +21,7 @@ public class UsuarioController {
 
   private Connection configuracion() throws SQLException {
     Conexion con = new Conexion(
-        "jdbc:oracle:thin:@3.15.193.194:49161:XE",
+        "jdbc:oracle:thin:@18.221.86.245:49161:XE",
         "RSXXI",
         "123"
     );
