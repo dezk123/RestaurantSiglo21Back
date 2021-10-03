@@ -65,7 +65,7 @@ public class UsuarioController {
 
   // Comprobar el tipo de usuario a traves del token
   @RequestMapping(value = "api/usuario/tipousuario")
-  public String obtenerTipoUsuario(@RequestHeader(value = "Athorization") String token) {
+  public String obtenerTipoUsuario(@RequestHeader(value = "Authorization") String token) {
     return jwtUtil.getValue(token);
   }
 }
