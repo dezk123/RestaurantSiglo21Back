@@ -4,16 +4,14 @@ import com.rsxxi.apirsxxi.connection.Conexion;
 import com.rsxxi.apirsxxi.models.Usuario;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 @RestController
+@CrossOrigin(origins = {"https://localhost:5001/"}, methods = { RequestMethod.GET, RequestMethod.POST })
 public class UsuarioController {
 
   private Connection configuracion() throws SQLException {
@@ -32,7 +30,7 @@ public class UsuarioController {
   }
 
   @RequestMapping(value = "api/registro", method = RequestMethod.POST)
-  public boolean registrarUsuarios(@RequestBody Usuario usuario) throws SQLException {
+  public String registrarUsuarios(@RequestBody Usuario usuario) throws SQLException {
     if (usuario != null){
       // Cifrar contrasena
       Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
@@ -53,9 +51,9 @@ public class UsuarioController {
       sp.execute();
       // Cerrar conexion
       con.close();
-      return true;
+      return "Usuario registrado";
     }
-    return false;
+    return "Usuario no registrado";
   }
 
 }
