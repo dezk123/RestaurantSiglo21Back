@@ -130,14 +130,13 @@ public class AdministradorController {
                                 @RequestBody Producto producto) throws SQLException {
     if (validarToken(token) == null || !validarToken(token).equals("ADM")) { return "El usuario no es valido"; }
     Connection connection = configuracion();
-    Statement statement = connection.createStatement();
-    String query = String.format("INSERT INTO PRODUCTO VALUES (%d, %d, '%s', %d, %d)", producto.getIdProducto(),
-        producto.getIdCategoriaProducto(), producto.getNombreProducto(), producto.getPrecioUnitario(),
-        producto.getExistencia());
-    statement.executeQuery(query);
+    CallableStatement statement = connection.prepareCall("{call SP_INSERPROD(?,?,?,?)}");
+    statement.setInt("p_idCategoria", producto.getIdCategoriaProducto());
+    statement.setString("p_nomProd", producto.getNombreProducto());
+    statement.setInt("p_precioUni", producto.getPrecioUnitario());
+    statement.setInt("p_existencia", producto.getExistencia());
+    statement.execute();
+    connection.close();
     return "Producto agregado";
   }
-
-
-
 }
