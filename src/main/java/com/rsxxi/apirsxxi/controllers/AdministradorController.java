@@ -22,7 +22,7 @@ public class AdministradorController {
 
   private Connection configuracion() throws SQLException {
     Conexion con = new Conexion(
-        "jdbc:oracle:thin:@18.221.86.245:49161:XE",
+        "jdbc:oracle:thin:@3.138.60.111:49161:XE",
         "RSXXI",
         "123"
     );
