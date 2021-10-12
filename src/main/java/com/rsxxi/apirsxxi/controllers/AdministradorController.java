@@ -22,7 +22,7 @@ public class AdministradorController {
 
   private Connection configuracion() throws SQLException {
     Conexion con = new Conexion(
-        "jdbc:oracle:thin:@3.138.60.111:49161:XE",
+        "jdbc:oracle:thin:@3.135.216.33:49161:XE",
         "RSXXI",
         "123"
     );
@@ -61,7 +61,7 @@ public class AdministradorController {
   // Registrar empleados
   @RequestMapping(value = "api/registro/empleado", method = RequestMethod.POST)
   public String registrarEmpleados(@RequestBody Usuario usuario,
-                                    @RequestHeader(value = "Authorization") String token) throws SQLException {
+                                   @RequestHeader(value = "Authorization") String token) throws SQLException {
     if (validarToken(token) == null || !validarToken(token).equals("ADM")) { return "El usuario no es valido"; }
 
     Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
@@ -88,10 +88,10 @@ public class AdministradorController {
   @RequestMapping(value = "api/productos", method = RequestMethod.GET)
   public List<Producto> obtenerProductos(@RequestHeader(value = "Authorization") String token) throws SQLException {
     if (validarToken(token) == null || !validarToken(token).equals("ADM")) { return null; }
-    List<Producto> productos = new ArrayList<>();
     Connection connection = configuracion();
     Statement statement = connection.createStatement();
-    String query = "SELECT * FROM PRODUCTO;";
+    List<Producto> productos = new ArrayList<>();
+    String query = "SELECT * FROM PRODUCTO";
     ResultSet resultSet = statement.executeQuery(query);
     while (resultSet.next()){
       Producto aux = new Producto(
