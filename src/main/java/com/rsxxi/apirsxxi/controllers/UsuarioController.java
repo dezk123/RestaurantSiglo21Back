@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 @RestController
 @CrossOrigin(origins = {"https://localhost:5001/"}, methods = { RequestMethod.GET, RequestMethod.POST })
-public class Usuario {
+public class UsuarioController {
 
   @Autowired
   private JWTUtil jwtUtil;

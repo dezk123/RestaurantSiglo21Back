@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"https://localhost:5001/"}, methods = { RequestMethod.GET, RequestMethod.POST })
-public class Administrador {
+public class AdministradorController {
 
   @Autowired
   private JWTUtil jwtUtil;

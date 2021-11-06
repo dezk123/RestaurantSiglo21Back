@@ -12,7 +12,7 @@ import java.sql.*;
 
 @RestController
 @CrossOrigin(origins = {"https://localhost:5001/"}, methods = { RequestMethod.POST })
-public class Autenticacion {
+public class AutenticacionController {
 
   private Connection configuracion() throws SQLException {
     Conexion con = new Conexion(

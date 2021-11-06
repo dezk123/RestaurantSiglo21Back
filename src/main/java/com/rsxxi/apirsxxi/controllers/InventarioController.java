@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"https://localhost:5001"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
-public class Inventario {
+public class InventarioController {
   @Autowired
   private JWTUtil jwtUtil;
 
