@@ -3,7 +3,8 @@ package com.rsxxi.apirsxxi.models;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.sql.Date;
+
 
 public class Reserva {
     @Getter @Setter
@@ -13,7 +14,7 @@ public class Reserva {
     private int idUsuario;
 
     @Getter @Setter
-    private int tipoUsuario;
+    private String tipoUsuario;
 
     @Getter @Setter
     private int idMesa;
@@ -25,11 +26,11 @@ public class Reserva {
     private int cantidadPersona;
 
     @Getter @Setter
-    private char estado;
+    private String estado;
 
     public Reserva() {}
 
-    public Reserva(int idReserva, int idUsuario, int tipoUsuario, int idMesa, Date fecha, int cantidadPersonas, char estado) {
+    public Reserva(int idReserva, int idUsuario, String tipoUsuario, int idMesa, Date fecha, int cantidadPersonas, String estado) {
         this.idReserva = idReserva;
         this.idUsuario = idUsuario;
         this.tipoUsuario = tipoUsuario;
