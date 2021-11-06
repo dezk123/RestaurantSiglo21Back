@@ -3,13 +3,13 @@ package com.rsxxi.apirsxxi.controllers;
 import com.rsxxi.apirsxxi.connection.Conexion;
 import com.rsxxi.apirsxxi.models.Reserva;
 import com.rsxxi.apirsxxi.utils.JWTUtil;
+import jdk.nashorn.internal.codegen.CompilerConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = {"https://localhost:5001"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
@@ -41,9 +41,68 @@ public class ReservaController {
         statement.setInt("p_idMesa", reserva.getIdMesa());
         statement.setDate("p_fecha", reserva.getFecha());
         statement.setInt("p_cantidadPersona", reserva.getCantidadPersona());
-        statement.setString("p_estado", reserva.getEstado());
+        statement.setBoolean("p_estado", reserva.isEstado());
         statement.execute();
         connection.close();
         return "Reserva creada";
+    }
+
+    // Cancelar reserva
+    @RequestMapping(value = "api/cliente/cancelar-reserva", method = RequestMethod.PUT)
+    public String cancelarReserva(@RequestHeader(value = "Authorization") String token, @RequestBody Reserva reserva) throws SQLException {
+        if(validarToken(token) == null || !validarToken(token).equals("CLI")) { return null; }
+        Connection connection = configuracion();
+        CallableStatement statement = connection.prepareCall("{call SP_CANCELARRESERVA(?,?)}");
+        statement.setInt("p_idReserva", reserva.getIdReserva());
+        statement.setBoolean("p_estado", reserva.isEstado());
+        statement.execute();
+        connection.close();
+        return "Reserva cancelada";
+    }
+
+    // Obtener todas las reservas
+    @RequestMapping(value = "api/reservas", method = RequestMethod.GET)
+    public List<Reserva> obtenerReservas(@RequestHeader(value = "Authorization") String token) throws SQLException {
+        if(validarToken(token) == null || validarToken(token).equals("CLI")) { return null; }
+        List<Reserva> reservas = new ArrayList<>();
+        Connection connection = configuracion();
+        CallableStatement statement = connection.prepareCall("{? = call FN_OBTENERRESERVAS()}");
+        ResultSet resultSet = statement.getResultSet();
+        while (resultSet.next()) {
+            Reserva reserva = new Reserva(
+                    resultSet.getInt(1),
+                    resultSet.getInt(2),
+                    resultSet.getString(3),
+                    resultSet.getInt(4),
+                    resultSet.getDate(5),
+                    resultSet.getInt(6),
+                    resultSet.getBoolean(7)
+            );
+            reservas.add(reserva);
+        }
+        return reservas;
+    }
+
+    // Obtener reservas por id de usuario
+    @RequestMapping(value = "api/reservas/{id}", method = RequestMethod.GET)
+    public List<Reserva> obtenerReservaId(@RequestHeader(value = "Authorization") String token, @PathVariable int id) throws SQLException {
+        if(validarToken(token) == null || !validarToken(token).equals("CLI")) { return null; }
+        List<Reserva> reservas = new ArrayList<>();
+        Connection connection = configuracion();
+        CallableStatement statement = connection.prepareCall("{? = call FN_OBTENERRESERVAID(?)}");
+        ResultSet resultSet = statement.getResultSet();
+        while (resultSet.next()) {
+            Reserva reserva = new Reserva(
+                    resultSet.getInt(1),
+                    resultSet.getInt(2),
+                    resultSet.getString(3),
+                    resultSet.getInt(4),
+                    resultSet.getDate(5),
+                    resultSet.getInt(6),
+                    resultSet.getBoolean(7)
+            );
+            reservas.add(reserva);
+        }
+        return reservas;
     }
 }
