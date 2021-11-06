@@ -27,8 +27,8 @@ public class SwaggerConfig {
 
     private ApiInfo getApiInfo() {
         return new ApiInfo(
-                "Order Service API",
-                "Order Service API Description",
+                "Restaurant Siglo XXI API",
+                "Restaurant Siglo XXI Description",
                 "1.0",
                 "http://localhost:8080",
                 new Contact("RSXXI", "http://localhost:8080", "rsxxi@gmail.com"),
