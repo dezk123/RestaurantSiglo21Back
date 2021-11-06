@@ -14,7 +14,7 @@ import java.sql.SQLException;
 
 @RestController
 @CrossOrigin(origins = {"https://localhost:5001/"}, methods = { RequestMethod.GET, RequestMethod.POST })
-public class UsuarioController {
+public class Usuario {
 
   @Autowired
   private JWTUtil jwtUtil;
@@ -37,7 +37,7 @@ public class UsuarioController {
 
   // Registro de usuario
   @RequestMapping(value = "api/registro", method = RequestMethod.POST)
-  public String registrarUsuarios(@RequestBody Usuario usuario) throws SQLException {
+  public String registrarUsuarios(@RequestBody com.rsxxi.apirsxxi.models.Usuario usuario) throws SQLException {
     if (usuario != null){
       // Cifrar contrasena
       Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
