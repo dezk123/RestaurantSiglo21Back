@@ -16,7 +16,7 @@ public class AutenticacionController {
 
   private Connection configuracion() throws SQLException {
     Conexion con = new Conexion(
-        "jdbc:oracle:thin:@18.116.63.103:49161:XE",
+        "jdbc:oracle:thin:@3.136.26.7:49161:XE",
         "RSXXI",
         "123"
     );

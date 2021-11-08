@@ -19,7 +19,7 @@ public class ReservaController {
     // Conexion base de datos
     private Connection configuracion() throws SQLException {
         Conexion con = new Conexion(
-                "jdbc:oracle:thin:@18.116.63.103:49161:XE",
+                "jdbc:oracle:thin:@3.136.26.7:49161:XE",
                 "RSXII",
                 "123"
         );
@@ -65,8 +65,10 @@ public class ReservaController {
         if(validarToken(token) == null || validarToken(token).equals("CLI")) { return null; }
         List<Reserva> reservas = new ArrayList<>();
         Connection connection = configuracion();
-        CallableStatement statement = connection.prepareCall("{? = call FN_OBTENERRESERVAS()}");
-        ResultSet resultSet = statement.getResultSet();
+        CallableStatement statement = connection.prepareCall("{? = call FN_LISTARRESERVAS()}");
+        statement.registerOutParameter(1, Types.REF_CURSOR);
+        statement.execute();
+        ResultSet resultSet = (ResultSet) statement.getObject(1);
         while (resultSet.next()) {
             Reserva reserva = new Reserva(
                     resultSet.getInt(1),
@@ -88,8 +90,11 @@ public class ReservaController {
         if(validarToken(token) == null || !validarToken(token).equals("CLI")) { return null; }
         List<Reserva> reservas = new ArrayList<>();
         Connection connection = configuracion();
-        CallableStatement statement = connection.prepareCall("{? = call FN_OBTENERRESERVAID(?)}");
-        ResultSet resultSet = statement.getResultSet();
+        CallableStatement statement = connection.prepareCall("{? = call FN_LISTARRESERVAID(?)}");
+        statement.registerOutParameter(1, Types.REF_CURSOR);
+        statement.setInt(2, id);
+        statement.execute();
+        ResultSet resultSet = (ResultSet) statement.getObject(1);
         while (resultSet.next()) {
             Reserva reserva = new Reserva(
                     resultSet.getInt(1),
