@@ -1,6 +1,7 @@
 package com.rsxxi.apirsxxi.controllers;
 
 import com.rsxxi.apirsxxi.connection.Conexion;
+import com.rsxxi.apirsxxi.models.Login;
 import com.rsxxi.apirsxxi.models.Usuario;
 import com.rsxxi.apirsxxi.utils.JWTUtil;
 import de.mkammerer.argon2.Argon2;
@@ -27,13 +28,13 @@ public class AutenticacionController {
   private JWTUtil jwtUtil;
 
   @RequestMapping(value = "api/login", method = RequestMethod.POST)
-  public String login(@RequestBody Usuario usuario) throws SQLException {
+  public String login(@RequestBody Login login) throws SQLException {
     // System.out.println(usuario.getCorreo());
     Connection con = configuracion();
     Usuario aux = new Usuario();
-    aux = aux.buscarUsuario(con, usuario.getCorreo());
+    aux = aux.buscarUsuario(con, login.getCorreo());
     Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-    if(argon2.verify(aux.getContrasena(), usuario.getContrasena())){
+    if(argon2.verify(aux.getContrasena(), login.getContrasena())){
       // retornar token
       return jwtUtil.create(aux.getCorreo(), aux.getIdTipoUsuario());
     }
