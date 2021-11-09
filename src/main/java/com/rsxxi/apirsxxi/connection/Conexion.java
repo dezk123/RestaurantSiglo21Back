@@ -33,7 +33,11 @@ public class Conexion {
       e.printStackTrace();
     }
 
-    Connection con = DriverManager.getConnection(this.url, this.usuario, this.contrasena);
+    Connection con = DriverManager.getConnection(
+            "jdbc:oracle:thin:@3.136.26.7:49161:XE",
+            "RSXXI",
+            "123"
+    );
 
     return con;
   }

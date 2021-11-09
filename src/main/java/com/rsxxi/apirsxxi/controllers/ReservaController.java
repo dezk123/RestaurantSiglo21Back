@@ -18,11 +18,7 @@ public class ReservaController {
 
     // Conexion base de datos
     private Connection configuracion() throws SQLException {
-        Conexion con = new Conexion(
-                "jdbc:oracle:thin:@3.136.26.7:49161:XE",
-                "RSXII",
-                "123"
-        );
+        Conexion con = new Conexion();
         return con.obtenerConexion();
     }
 

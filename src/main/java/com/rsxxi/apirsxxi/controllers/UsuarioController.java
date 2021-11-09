@@ -20,11 +20,7 @@ public class UsuarioController {
   private JWTUtil jwtUtil;
 
   private Connection configuracion() throws SQLException {
-    Conexion con = new Conexion(
-        "jdbc:oracle:thin:@3.136.26.7:49161:XE",
-        "RSXXI",
-        "123"
-    );
+    Conexion con = new Conexion();
     return con.obtenerConexion();
   }
 
@@ -37,7 +33,7 @@ public class UsuarioController {
 
   // Registro de usuario
   @RequestMapping(value = "api/registro", method = RequestMethod.POST)
-  public String registrarUsuarios(@RequestBody com.rsxxi.apirsxxi.models.Usuario usuario) throws SQLException {
+  public String registrarUsuarios(@RequestBody Usuario usuario) throws SQLException {
     if (usuario != null){
       // Cifrar contrasena
       Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
@@ -64,7 +60,7 @@ public class UsuarioController {
   }
 
   // Comprobar el tipo de usuario a traves del token
-  @RequestMapping(value = "api/usuario/tipousuario")
+  @RequestMapping(value = "api/usuario/tipousuario", method = RequestMethod.GET)
   public String obtenerTipoUsuario(@RequestHeader(value = "Authorization") String token) {
     return jwtUtil.getValue(token);
   }
