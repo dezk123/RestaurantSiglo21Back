@@ -69,7 +69,7 @@ public class InventarioController {
   public String agregarProducto(@RequestHeader(value = "Authorization") String token, @RequestBody Producto producto) throws SQLException {
     if (validarToken(token) == null || !validarToken(token).equals("ADM")) { return "El usuario no es valido"; }
     Connection connection = configuracion();
-    CallableStatement statement = connection.prepareCall("{call SP_INSERPROD(?,?,?,?)}");
+    CallableStatement statement = connection.prepareCall("{call SP_INSERTARPRODUCTO(?,?,?,?)}");
     statement.setInt("p_idCategoria", producto.getIdCategoriaProducto());
     statement.setString("p_nomProd", producto.getNombreProducto());
     statement.setInt("p_precioUni", producto.getPrecioUnitario());

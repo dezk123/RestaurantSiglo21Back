@@ -64,7 +64,7 @@ public class AdministradorController {
     usuario.setContrasena(hash);
 
     Connection connection = configuracion();
-    CallableStatement sp = connection.prepareCall("{call SP_REGISTRO(?,?,?,?,?,?,?)}");
+    CallableStatement sp = connection.prepareCall("{call SP_INSERTARUSUARIO(?,?,?,?,?,?,?)}");
     sp.setString("P_idTipoUsuario", usuario.getIdTipoUsuario());
     sp.setString("P_correo", usuario.getCorreo());
     sp.setString("P_contrasena", usuario.getContrasena());
