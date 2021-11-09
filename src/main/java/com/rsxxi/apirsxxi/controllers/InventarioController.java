@@ -79,16 +79,4 @@ public class InventarioController {
     return "Producto agregado";
   }
 
-  // Actualizar producto del inventario
-  // Aumentar o disminuir inventario
-  @RequestMapping(value = "api/productos/actualizar", method = RequestMethod.PUT)
-  public String actualizarProducto(@RequestHeader(value = "Authorization") String token, @RequestBody Producto producto) throws SQLException {
-    if (validarToken(token) == null || !validarToken(token).equals("ADM")) { return "El usuario no es valido"; }
-    Connection connection = configuracion();
-    CallableStatement statement = connection.prepareCall("{call }");
-
-    statement.execute();
-    connection.close();
-    return "Producto actualizado";
-  }
 }
