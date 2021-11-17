@@ -55,13 +55,15 @@ public class InventarioController {
     Statement statement = connection.createStatement();
     String query = String.format("SELECT * FROM INSUMO WHERE IDINSUMO = %d", id);
     ResultSet resultSet = statement.executeQuery(query);
-    return new Insumo(
-        resultSet.getInt(1),
-        resultSet.getInt(2),
-        resultSet.getString(3),
-        resultSet.getInt(4),
-        resultSet.getInt(5)
-    );
+    Insumo insumo = new Insumo();
+    while(resultSet.next()){
+      insumo.setIdInsumo(resultSet.getInt(1));
+      insumo.setIdCategoriaInsumo(resultSet.getInt(2));
+      insumo.setNombreInsumo(resultSet.getString(3));
+      insumo.setPrecioUnitario(resultSet.getInt(4));
+      insumo.setExistencia(resultSet.getInt(5));
+    }
+    return insumo;
   }
 
   // Agregar nuevo producto al inventario
