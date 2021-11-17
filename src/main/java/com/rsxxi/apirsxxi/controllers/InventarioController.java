@@ -71,8 +71,8 @@ public class InventarioController {
     Connection connection = configuracion();
     CallableStatement statement = connection.prepareCall("{call SP_INSERTARINSUMO(?,?,?,?)}");
     statement.setInt("p_idCategoria", insumo.getIdCategoriaInsumo());
-    statement.setString("p_nomProd", insumo.getNombreInsumo());
-    statement.setInt("p_precioUni", insumo.getPrecioUnitario());
+    statement.setString("p_nombreInsumo", insumo.getNombreInsumo());
+    statement.setInt("p_precioUnitario", insumo.getPrecioUnitario());
     statement.setInt("p_existencia", insumo.getExistencia());
     statement.execute();
     connection.close();
