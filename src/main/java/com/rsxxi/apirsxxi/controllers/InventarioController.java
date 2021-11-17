@@ -1,7 +1,7 @@
 package com.rsxxi.apirsxxi.controllers;
 
 import com.rsxxi.apirsxxi.connection.Conexion;
-import com.rsxxi.apirsxxi.models.Producto;
+import com.rsxxi.apirsxxi.models.Insumo;
 import com.rsxxi.apirsxxi.utils.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,16 +26,16 @@ public class InventarioController {
   private String validarToken(String token) { return jwtUtil.getValue(token); }
 
   // Obtener productos
-  @RequestMapping(value = "api/productos", method = RequestMethod.GET)
-  public List<Producto> obtenerProductos(@RequestHeader(value = "Authorization") String token) throws SQLException {
+  @RequestMapping(value = "api/insumo", method = RequestMethod.GET)
+  public List<Insumo> obtenerInsumo(@RequestHeader(value = "Authorization") String token) throws SQLException {
     if (validarToken(token) == null || !validarToken(token).equals("ADM")) { return null; }
     Connection connection = configuracion();
     Statement statement = connection.createStatement();
-    List<Producto> productos = new ArrayList<>();
-    String query = "SELECT * FROM PRODUCTO";
+    List<Insumo> productos = new ArrayList<>();
+    String query = "SELECT * FROM INSUMO";
     ResultSet resultSet = statement.executeQuery(query);
     while (resultSet.next()){
-      Producto aux = new Producto(
+      Insumo aux = new Insumo(
           resultSet.getInt(1),
           resultSet.getInt(2),
           resultSet.getString(3),
@@ -48,14 +48,14 @@ public class InventarioController {
   }
 
   // Obtener producto por id
-  @RequestMapping(value = "api/productos/{id}", method = RequestMethod.GET)
-  public Producto obtenerProducto(@RequestHeader(value = "Authorization") String token, @PathVariable int id) throws SQLException {
+  @RequestMapping(value = "api/insumo/{id}", method = RequestMethod.GET)
+  public Insumo obtenerInsumo(@RequestHeader(value = "Authorization") String token, @PathVariable int id) throws SQLException {
     if (validarToken(token) == null || !validarToken(token).equals("ADM")) { return null; }
     Connection connection = configuracion();
     Statement statement = connection.createStatement();
-    String query = String.format("SELECT * FROM PRODUCTO WHERE IDPRODUCTO = %d", id);
+    String query = String.format("SELECT * FROM INSUMO WHERE IDINSUMO = %d", id);
     ResultSet resultSet = statement.executeQuery(query);
-    return new Producto(
+    return new Insumo(
         resultSet.getInt(1),
         resultSet.getInt(2),
         resultSet.getString(3),
@@ -65,15 +65,15 @@ public class InventarioController {
   }
 
   // Agregar nuevo producto al inventario
-  @RequestMapping(value = "api/productos/agregar", method = RequestMethod.POST)
-  public String agregarProducto(@RequestHeader(value = "Authorization") String token, @RequestBody Producto producto) throws SQLException {
+  @RequestMapping(value = "api/insumo/agregar", method = RequestMethod.POST)
+  public String agregarInsumo(@RequestHeader(value = "Authorization") String token, @RequestBody Insumo insumo) throws SQLException {
     if (validarToken(token) == null || !validarToken(token).equals("ADM")) { return "El usuario no es valido"; }
     Connection connection = configuracion();
-    CallableStatement statement = connection.prepareCall("{call SP_INSERTARPRODUCTO(?,?,?,?)}");
-    statement.setInt("p_idCategoria", producto.getIdCategoriaProducto());
-    statement.setString("p_nomProd", producto.getNombreProducto());
-    statement.setInt("p_precioUni", producto.getPrecioUnitario());
-    statement.setInt("p_existencia", producto.getExistencia());
+    CallableStatement statement = connection.prepareCall("{call SP_INSERTARINSUMO(?,?,?,?)}");
+    statement.setInt("p_idCategoria", insumo.getIdCategoriaInsumo());
+    statement.setString("p_nomProd", insumo.getNombreInsumo());
+    statement.setInt("p_precioUni", insumo.getPrecioUnitario());
+    statement.setInt("p_existencia", insumo.getExistencia());
     statement.execute();
     connection.close();
     return "Producto agregado";

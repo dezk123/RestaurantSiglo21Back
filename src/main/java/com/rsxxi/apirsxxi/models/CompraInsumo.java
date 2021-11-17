@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import java.sql.Date;
 
-public class CompraProducto {
+public class CompraInsumo {
     @Getter @Setter
     private int idCompra;
 
@@ -22,19 +22,23 @@ public class CompraProducto {
     private int total;
 
     @Getter @Setter
+    private int idEmpleado;
+
+    @Getter @Setter
     private int idUsuario;
 
     @Getter @Setter
     private String idTipoUsuario;
 
-    public CompraProducto() {}
+    public CompraInsumo() {}
 
-    public CompraProducto(int idCompra, Date fechaCompra, int valorNeto, int IVA, int total, int idUsuario, String idTipoUsuario) {
+    public CompraInsumo(int idCompra, Date fechaCompra, int valorNeto, int IVA, int total, int idEmpleado, int idUsuario, String idTipoUsuario) {
         this.idCompra = idCompra;
         this.fechaCompra = fechaCompra;
         this.valorNeto = valorNeto;
         this.IVA = IVA;
         this.total = total;
+        this.idEmpleado = idEmpleado;
         this.idUsuario = idUsuario;
         this.idTipoUsuario = idTipoUsuario;
     }

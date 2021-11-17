@@ -3,7 +3,7 @@ package com.rsxxi.apirsxxi.models;
 import lombok.Getter;
 import lombok.Setter;
 
-public class CategoriaProducto {
+public class CategoriaInsumo {
 
   @Getter @Setter
   private int idCategoria;
@@ -11,9 +11,9 @@ public class CategoriaProducto {
   @Getter @Setter
   private String descripcion;
 
-  public CategoriaProducto(){}
+  public CategoriaInsumo(){}
 
-  public CategoriaProducto(int idCategoria, String descripcion) {
+  public CategoriaInsumo(int idCategoria, String descripcion) {
     this.idCategoria = idCategoria;
     this.descripcion = descripcion;
   }

@@ -5,26 +5,23 @@ import lombok.Setter;
 
 public class Receta {
     @Getter @Setter
-    private int idReceta;
+    private int cantidadInsumo;
 
     @Getter @Setter
-    private int idProducto;
-
-    @Getter @Setter
-    private int cantidad;
-
-    @Getter @Setter
-    private int idPlato;
+    private int idInsumo;
 
     @Getter @Setter
     private int idCategoria;
 
+    @Getter @Setter
+    private int idPlato;
+
+
     public Receta() {}
 
-    public Receta(int idReceta, int idProducto, int cantidad, int idPlato, int idCategoria) {
-        this.idReceta = idReceta;
-        this.idProducto = idProducto;
-        this.cantidad = cantidad;
+    public Receta(int cantidadInsumo, int idInsumo, int idCategoria, int idPlato) {
+        this.cantidadInsumo = cantidadInsumo;
+        this.idInsumo = idInsumo;
         this.idPlato = idPlato;
         this.idCategoria = idCategoria;
     }

@@ -11,25 +11,25 @@ public class DetalleCompra {
     private int idCategoria;
 
     @Getter @Setter
-    private int idCompra;
-
-    @Getter @Setter
-    private int idUsuario;
-
-    @Getter @Setter
     private String rutProveedor;
 
     @Getter @Setter
-    private int idProducto;
+    private int idInsumo;
+
+    @Getter @Setter
+    private int idCompra;
+
+    @Getter @Setter
+    private int idEmpleado;
 
     public DetalleCompra() {}
 
-    public DetalleCompra(int cantidad, int idCategoria, int idCompra, int idUsuario, String rutProveedor, int idProducto) {
+    public DetalleCompra(int cantidad, int idCategoria, String rutProveedor, int idInsumo, int idCompra, int idEmpleado) {
         this.cantidad = cantidad;
         this.idCategoria = idCategoria;
-        this.idCompra = idCompra;
-        this.idUsuario = idUsuario;
         this.rutProveedor = rutProveedor;
-        this.idProducto = idProducto;
+        this.idInsumo = idInsumo;
+        this.idCompra = idCompra;
+        this.idEmpleado = idEmpleado;
     }
 }
