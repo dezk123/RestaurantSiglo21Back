@@ -55,6 +55,23 @@ public class ReservaController {
         return "Reserva cancelada";
     }
 
+    //Actualizar Reserva
+    @RequestMapping(value = "api/cliente/actualiza-reserva", method = RequestMethod.PUT)
+    public String actualizaReserva(@RequestHeader(value = "Autorization") String token,@RequestBody Reserva reserva) throws  SQLException{
+        if(validarToken(token) == null || !validarToken(token).equals("CLI")) { return null; }
+        Connection connection = configuracion();
+        CallableStatement statement = connection.prepareCall("{call SP_ACTUALIZARRESERVA(?,?,?,?,?,?,?)}");
+        statement.setInt("p_idReserva", reserva.getIdReserva());
+        statement.setInt("p_cantidadPersona",reserva.getCantidadPersona());
+        statement.setDate("p_fecha", reserva.getFecha());
+        statement.setInt("p_idMesa",reserva.getIdMesa());
+        statement.setString("p_idUsuario", reserva.getTipoUsuario());
+        statement.setBoolean("p_estado", reserva.isEstado());
+        statement.execute();
+        connection.close();
+        return "Reserva Actualizada";
+    }
+
     // Obtener todas las reservas
     @RequestMapping(value = "api/reservas", method = RequestMethod.GET)
     public List<Reserva> obtenerReservas(@RequestHeader(value = "Authorization") String token) throws SQLException {
