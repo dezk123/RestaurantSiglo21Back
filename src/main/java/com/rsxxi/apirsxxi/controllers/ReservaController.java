@@ -65,7 +65,8 @@ public class ReservaController {
         statement.setInt("p_cantidadPersona",reserva.getCantidadPersona());
         statement.setDate("p_fecha", reserva.getFecha());
         statement.setInt("p_idMesa",reserva.getIdMesa());
-        statement.setString("p_idUsuario", reserva.getTipoUsuario());
+        statement.setInt("p_idUsuario", reserva.getIdUsuario());
+        statement.setString("p_idTipoUsuario", reserva.getTipoUsuario());
         statement.setBoolean("p_estado", reserva.isEstado());
         statement.execute();
         connection.close();
