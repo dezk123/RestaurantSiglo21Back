@@ -33,13 +33,11 @@ public class Conexion {
       e.printStackTrace();
     }
 
-    Connection con = DriverManager.getConnection(
+    return DriverManager.getConnection(
             "jdbc:oracle:thin:@18.117.6.109:49161:XE",
             "RSXXI",
             "123"
     );
-
-    return con;
   }
 }
 
