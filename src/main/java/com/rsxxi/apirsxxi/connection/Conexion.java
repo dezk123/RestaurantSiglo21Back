@@ -34,7 +34,7 @@ public class Conexion {
     }
 
     Connection con = DriverManager.getConnection(
-            "jdbc:oracle:thin:@3.144.96.89:49161:XE",
+            "jdbc:oracle:thin:@18.117.6.109:49161:XE",
             "RSXXI",
             "123"
     );
