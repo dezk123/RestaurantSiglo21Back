@@ -3,10 +3,13 @@ package com.rsxxi.apirsxxi.controllers;
 import com.rsxxi.apirsxxi.connection.Conexion;
 import com.rsxxi.apirsxxi.models.Reserva;
 import com.rsxxi.apirsxxi.utils.JWTUtil;
+import jdk.nashorn.internal.codegen.CompilerConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,10 +90,10 @@ public class ReservaController {
             Reserva reserva = new Reserva(
                     resultSet.getInt(1),
                     resultSet.getInt(2),
-                    resultSet.getString(3),
+                    resultSet.getDate(3),
                     resultSet.getInt(4),
-                    resultSet.getDate(5),
-                    resultSet.getInt(6),
+                    resultSet.getInt(5),
+                    resultSet.getString(6),
                     resultSet.getBoolean(7)
             );
             reservas.add(reserva);
@@ -111,13 +114,13 @@ public class ReservaController {
         ResultSet resultSet = (ResultSet) statement.getObject(1);
         while (resultSet.next()) {
             Reserva reserva = new Reserva(
-                    resultSet.getInt(1),
-                    resultSet.getInt(2),
-                    resultSet.getString(3),
-                    resultSet.getInt(4),
-                    resultSet.getDate(5),
-                    resultSet.getInt(6),
-                    resultSet.getBoolean(7)
+                resultSet.getInt(1),
+                resultSet.getInt(2),
+                resultSet.getDate(3),
+                resultSet.getInt(4),
+                resultSet.getInt(5),
+                resultSet.getString(6),
+                resultSet.getBoolean(7)
             );
             reservas.add(reserva);
         }

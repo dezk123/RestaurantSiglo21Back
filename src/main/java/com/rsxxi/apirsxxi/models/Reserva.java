@@ -3,6 +3,7 @@ package com.rsxxi.apirsxxi.models;
 import lombok.Getter;
 import lombok.Setter;
 
+
 import java.sql.Date;
 
 
@@ -30,7 +31,7 @@ public class Reserva {
 
     public Reserva() {}
 
-    public Reserva(int idReserva, int idUsuario, String tipoUsuario, int idMesa, Date fecha, int cantidadPersonas, boolean estado) {
+    public Reserva(int idReserva, int cantidadPersonas, Date fecha, int idMesa, int idUsuario, String tipoUsuario, boolean estado) {
         this.idReserva = idReserva;
         this.idUsuario = idUsuario;
         this.tipoUsuario = tipoUsuario;
