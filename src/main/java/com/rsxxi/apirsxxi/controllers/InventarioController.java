@@ -80,5 +80,4 @@ public class InventarioController {
     connection.close();
     return "Producto agregado";
   }
-
 }
