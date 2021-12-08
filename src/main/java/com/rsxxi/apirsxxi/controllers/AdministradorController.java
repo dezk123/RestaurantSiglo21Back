@@ -78,4 +78,48 @@ public class AdministradorController {
     connection.close();
     return "Usuario registrado";
   }
-}
+
+   //eliminar Empleado
+
+  @RequestMapping(value = "api/eliminar/empleado", method = RequestMethod.POST)
+  public String eliminarEmpleado (@RequestBody Usuario usuario,
+                                  @RequestHeader (value = "Authorization") String token ) throws SQLException{
+    if (validarToken(token) == null || !validarToken(token).equals("ADM")) {return "El usuario no es valido";}
+
+    Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+    String hash = argon2.hash(1, 1024, 1, usuario.getContrasena());
+    usuario.setContrasena(hash);
+
+    Connection connection = configuracion();
+    CallableStatement sp = connection.prepareCall("{call SP_ELIMINARUSUARIO(?)}");
+    sp.setInt("P_idUsuario", usuario.getIdUsuario());
+    sp.execute();
+    connection.close();
+    return "Usuario eliminado";
+
+    }
+
+    //actualizar Empleado
+
+     @RequestMapping(value = "api/actualizar/empleado", method = RequestMethod.POST)
+     public String actualizarEmpleado (@RequestBody Usuario usuario,
+                                       @RequestHeader (value = "Authorization") String token ) throws SQLException {
+       if (validarToken(token) == null || !validarToken(token).equals("ADM")) {return "El usuario no es valido";}
+       Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+       String hash = argon2.hash(1, 1024, 1, usuario.getContrasena());
+       usuario.setContrasena(hash);
+
+       Connection connection = configuracion();
+       CallableStatement sp = connection.prepareCall("{call  SP_ACTUALIZARUSUARIO(?,?,?,?,?,?,?,?)}");
+       sp.setString("P_idTipoUsuario", usuario.getIdTipoUsuario());
+       sp.setString("P_correo", usuario.getCorreo());
+       sp.setString("P_contrasena", usuario.getContrasena());
+       sp.setString("P_nombre", usuario.getNombre());
+       sp.setString("P_apellido", usuario.getApellido());
+       sp.setString("P_run", usuario.getRun());
+       sp.setInt("P_idUsuario", usuario.getIdUsuario());
+       sp.execute();
+       connection.close();
+       return "Usuario actualizado";
+     }
+  }
