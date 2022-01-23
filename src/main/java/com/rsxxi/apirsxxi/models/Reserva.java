@@ -33,11 +33,11 @@ public class Reserva {
 
     public Reserva(int idReserva, int cantidadPersonas, Date fecha, int idMesa, int idUsuario, String tipoUsuario, boolean estado) {
         this.idReserva = idReserva;
+        this.cantidadPersona = cantidadPersonas;
+        this.fecha = fecha;
+        this.idMesa = idMesa;
         this.idUsuario = idUsuario;
         this.tipoUsuario = tipoUsuario;
-        this.idMesa = idMesa;
-        this.fecha = fecha;
-        this.cantidadPersona = cantidadPersonas;
         this.estado = estado;
     }
 }

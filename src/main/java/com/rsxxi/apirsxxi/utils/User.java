@@ -1,4 +1,4 @@
-package com.rsxxi.apirsxxi.models;
+package com.rsxxi.apirsxxi.utils;
 
 import lombok.Getter;
 import lombok.Setter;

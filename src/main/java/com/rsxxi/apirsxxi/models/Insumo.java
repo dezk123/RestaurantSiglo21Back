@@ -9,7 +9,7 @@ public class Insumo {
   private int idInsumo;
 
   @Getter @Setter
-  private int idCategoriaInsumo;
+  private int idCategoria;
 
   @Getter @Setter
   private String nombreInsumo;
@@ -22,9 +22,9 @@ public class Insumo {
 
   public Insumo(){}
 
-  public Insumo(int idInsumo, int idCategoriaInsumo, String nombreInsumo, int precioUnitario, int existencia) {
+  public Insumo(int idInsumo, int idCategoria, String nombreInsumo, int precioUnitario, int existencia) {
     this.idInsumo = idInsumo;
-    this.idCategoriaInsumo = idCategoriaInsumo;
+    this.idCategoria = idCategoria;
     this.nombreInsumo = nombreInsumo;
     this.precioUnitario = precioUnitario;
     this.existencia = existencia;

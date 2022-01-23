@@ -9,13 +9,13 @@ public class EstadoPedido {
     private String idEstadoPedido;
 
     @Getter @Setter
-    private String descripcionEstado;
+    private String descripcion;
 
     public EstadoPedido(){}
 
-    public EstadoPedido(String idEstadoPedido, String descripcionEstado) {
+    public EstadoPedido(String idEstadoPedido, String descripcion) {
         this.idEstadoPedido = idEstadoPedido;
-        this.descripcionEstado = descripcionEstado;
+        this.descripcion = descripcion;
     }
 
 }

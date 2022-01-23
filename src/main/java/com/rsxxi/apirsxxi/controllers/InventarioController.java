@@ -58,7 +58,7 @@ public class InventarioController {
     Insumo insumo = new Insumo();
     while(resultSet.next()){
       insumo.setIdInsumo(resultSet.getInt(1));
-      insumo.setIdCategoriaInsumo(resultSet.getInt(2));
+      insumo.setIdCategoria(resultSet.getInt(2));
       insumo.setNombreInsumo(resultSet.getString(3));
       insumo.setPrecioUnitario(resultSet.getInt(4));
       insumo.setExistencia(resultSet.getInt(5));
@@ -72,7 +72,7 @@ public class InventarioController {
     if (validarToken(token) == null || !validarToken(token).equals("ADM")) { return "El usuario no es valido"; }
     Connection connection = configuracion();
     CallableStatement statement = connection.prepareCall("{call SP_INSERTARINSUMO(?,?,?,?)}");
-    statement.setInt("p_idCategoria", insumo.getIdCategoriaInsumo());
+    statement.setInt("p_idCategoria", insumo.getIdCategoria());
     statement.setString("p_nombreInsumo", insumo.getNombreInsumo());
     statement.setInt("p_precioUnitario", insumo.getPrecioUnitario());
     statement.setInt("p_existencia", insumo.getExistencia());

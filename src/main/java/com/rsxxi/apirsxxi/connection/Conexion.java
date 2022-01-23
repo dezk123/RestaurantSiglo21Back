@@ -34,9 +34,9 @@ public class Conexion {
     }
 
     return DriverManager.getConnection(
-            "jdbc:oracle:thin:@18.117.6.109:49161:XE",
-            "RSXXI",
-            "123"
+            "jdbc:oracle:thin:@3.18.78.138:49161:XE",
+            "restaurant",
+            "perroculiao"
     );
   }
 }

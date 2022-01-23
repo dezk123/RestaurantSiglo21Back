@@ -21,16 +21,16 @@ public class DetallePedido {
     private int cantidadPlato;
 
     @Getter @Setter
-    private int precioPedido;
+    private int precioCantPedido;
 
     public DetallePedido(){}
 
-    public DetallePedido(int idPedido, int idPlato, int idInsumo, int idCategoria, int cantidadPlato, int precioPedido) {
+    public DetallePedido(int idPedido, int idPlato, int idInsumo, int idCategoria, int cantidadPlato, int precioCantPedido) {
         this.idPedido = idPedido;
         this.idPlato = idPlato;
         this.idInsumo = idInsumo;
         this.idCategoria = idCategoria;
         this.cantidadPlato = cantidadPlato;
-        this.precioPedido = precioPedido;
+        this.precioCantPedido = precioCantPedido;
     }
 }

@@ -1,8 +1,8 @@
 package com.rsxxi.apirsxxi.controllers;
 
 import com.rsxxi.apirsxxi.connection.Conexion;
-import com.rsxxi.apirsxxi.models.User;
-import com.rsxxi.apirsxxi.models.Login;
+import com.rsxxi.apirsxxi.utils.User;
+import com.rsxxi.apirsxxi.utils.Login;
 import com.rsxxi.apirsxxi.models.Usuario;
 import com.rsxxi.apirsxxi.utils.JWTUtil;
 import de.mkammerer.argon2.Argon2;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.*;
 
 @RestController
-@CrossOrigin(origins = {"https://localhost:5001/", "http://localhost:3000/"}, methods = { RequestMethod.POST })
+@CrossOrigin(origins = {"https://localhost:44379/", "http://localhost:44379/"}, methods = { RequestMethod.POST })
 public class AutenticacionController {
 
   private Connection configuracion() throws SQLException {

@@ -41,8 +41,9 @@ public class UsuarioController {
       usuario.setContrasena(hash);
       Connection con = configuracion();
       // Llamar al procedimiento que se va a usar
-      CallableStatement sp = con.prepareCall("{call SP_INSERTARUSUARIO(?,?,?,?,?,?,?)}");
+      CallableStatement sp = con.prepareCall("{call SP_CREARUSUARIO(?,?,?,?,?,?,?,?)}");
       // Asignar los parametros
+      sp.setInt("P_idUsuario", usuario.getIdUsuario());
       sp.setString("P_idTipoUsuario", "CLI");
       sp.setString("P_correo", usuario.getCorreo());
       sp.setString("P_contrasena", usuario.getContrasena());

@@ -11,13 +11,13 @@ public class Mesa {
     private int cantidadSilla;
 
     @Getter  @Setter
-    private char idestadoMesa;
+    private char idestado;
 
     public Mesa() {}
 
-    public Mesa(int idMesa, int cantidadSilla, char idestadoMesa) {
+    public Mesa(int idMesa, int cantidadSilla, char idestado) {
         this.idMesa = idMesa;
         this.cantidadSilla = cantidadSilla;
-        this.idestadoMesa = idestadoMesa;
+        this.idestado = idestado;
     }
 }
