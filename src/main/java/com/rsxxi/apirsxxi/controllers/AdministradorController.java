@@ -46,8 +46,9 @@ public class AdministradorController {
           resultSet.getString(5),
           resultSet.getString(6),
           resultSet.getString(7),
-          resultSet.getString(8)
-      );
+          resultSet.getString(8),
+              resultSet.getString(9)
+              );
       usuarios.add(aux);
     }
     return usuarios;

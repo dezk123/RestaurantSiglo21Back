@@ -34,9 +34,12 @@ public class Usuario {
   @Getter @Setter
   private String run;
 
+  @Getter @Setter
+  private String nombreUsuario;
+
   public Usuario(){}
 
-  public Usuario(int idUsuario, String idTipoUsuario, String correo, String contrasena, String nombre, String apellido, String direccion, String run) {
+  public Usuario(int idUsuario, String idTipoUsuario, String correo, String contrasena, String nombre, String apellido, String direccion, String run,  String nombreUsuario) {
     this.idUsuario = idUsuario;
     this.idTipoUsuario = idTipoUsuario;
     this.correo = correo;
@@ -44,6 +47,7 @@ public class Usuario {
     this.nombre = nombre;
     this.apellido = apellido;
     this.direccion = direccion;
+    this.nombreUsuario = nombreUsuario;
     this.run = run;
   }
 
@@ -61,6 +65,7 @@ public class Usuario {
       aux.setApellido(resultSet.getString(6));
       aux.setDireccion(resultSet.getString(7));
       aux.setRun(resultSet.getString(8));
+      aux.setNombreUsuario(resultSet.getString(9));
     }
     return aux;
   }

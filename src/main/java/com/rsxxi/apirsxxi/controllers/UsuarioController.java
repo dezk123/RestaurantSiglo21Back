@@ -43,7 +43,6 @@ public class UsuarioController {
       // Llamar al procedimiento que se va a usar
       CallableStatement sp = con.prepareCall("{call SP_CREARUSUARIO(?,?,?,?,?,?,?,?)}");
       // Asignar los parametros
-      sp.setInt("P_idUsuario", usuario.getIdUsuario());
       sp.setString("P_idTipoUsuario", "CLI");
       sp.setString("P_correo", usuario.getCorreo());
       sp.setString("P_contrasena", usuario.getContrasena());
@@ -51,6 +50,7 @@ public class UsuarioController {
       sp.setString("P_apellido", usuario.getApellido());
       sp.setString("P_direccion", usuario.getDireccion());
       sp.setString("P_run", usuario.getRun());
+      sp.setString("P_nombreUsuario", usuario.getNombreUsuario());
       // Ejecutar procedimiento
       sp.execute();
       // Cerrar conexion
