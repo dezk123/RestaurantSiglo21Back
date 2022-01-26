@@ -3,18 +3,15 @@ package com.rsxxi.apirsxxi.controllers;
 import com.rsxxi.apirsxxi.connection.Conexion;
 import com.rsxxi.apirsxxi.models.Reserva;
 import com.rsxxi.apirsxxi.utils.JWTUtil;
-import jdk.nashorn.internal.codegen.CompilerConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"https://localhost:5001", "http://localhost:3000/"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
+@CrossOrigin(origins = {"https://localhost:44379", "https://localhost:44379"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
 public class ReservaController {
     @Autowired
     private JWTUtil jwtUtil;

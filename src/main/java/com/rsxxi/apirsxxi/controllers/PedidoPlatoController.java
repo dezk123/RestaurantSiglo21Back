@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"https://localhost:5001", "http://localhost:3000/"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
+@CrossOrigin(origins = {"https://localhost:44379", "https://localhost:44379"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
 public class PedidoPlatoController {
   @Autowired
   private JWTUtil jwtUtil;
@@ -26,11 +26,11 @@ public class PedidoPlatoController {
   private String validarToken(String token) { return jwtUtil.getValue(token); }
 
   // Obtener platos
-  @RequestMapping(value = "/api/platos", method = RequestMethod.GET)
-  public List<Plato> obtenerPlatos(@RequestHeader(value = "Authorization") String token) throws SQLException {
-    if (validarToken(token) == null) { return null; }
+  @RequestMapping(value = "api/platos", method = RequestMethod.GET)
+  public List<Plato> obtenerPlatos(/*@RequestHeader(value = "Authorization") String token*/) throws SQLException {
+    //if (validarToken(token) == null) { return null; }
     Connection connection = configuracion();
-    CallableStatement statement = connection.prepareCall("{? = call FN_LISTARPLATOS()}");
+    CallableStatement statement = connection.prepareCall("{? = call FN_LISTARPLATOS}");
     statement.registerOutParameter(1, Types.REF_CURSOR);
     statement.execute();
     ResultSet resultSet = (ResultSet) statement.getObject(1);
