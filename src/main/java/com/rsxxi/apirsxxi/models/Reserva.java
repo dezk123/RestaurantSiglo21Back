@@ -27,11 +27,11 @@ public class Reserva {
     private int cantidadPersona;
 
     @Getter @Setter
-    private boolean estado;
+    private String estado;
 
     public Reserva() {}
 
-    public Reserva(int idReserva, int cantidadPersonas, Date fecha, int idMesa, int idUsuario, String tipoUsuario, boolean estado) {
+    public Reserva(int idReserva, int cantidadPersonas, Date fecha, int idMesa, int idUsuario, String tipoUsuario, String estado) {
         this.idReserva = idReserva;
         this.cantidadPersona = cantidadPersonas;
         this.fecha = fecha;

@@ -92,7 +92,7 @@ public class ReservaController {
                     resultSet.getInt(4),
                     resultSet.getInt(5),
                     resultSet.getString(6),
-                    resultSet.getBoolean(7)
+                    resultSet.getString(7)
             );
             reservas.add(reserva);
         }
