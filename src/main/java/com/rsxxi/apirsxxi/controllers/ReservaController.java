@@ -30,7 +30,8 @@ public class ReservaController {
     public String crearReserva(@RequestHeader(value = "Authorization") String token, @RequestBody Reserva reserva) throws SQLException {
         if(validarToken(token) == null || !validarToken(token).equals("CLI")) { return null; }
         Connection connection = configuracion();
-        CallableStatement statement = connection.prepareCall("{call SP_INSERTARRESERVA(?,?,?,?,?,?)}");
+        CallableStatement statement = connection.prepareCall("{call SP_INSERTARRESERVA(?,?,?,?,?,?,?)}");
+        statement.setInt("p_idReserva", reserva.getIdReserva());
         statement.setInt("p_idUsuario", reserva.getIdUsuario());
         statement.setString("p_idTipoUsuario", reserva.getTipoUsuario());
         statement.setInt("p_idMesa", reserva.getIdMesa());
