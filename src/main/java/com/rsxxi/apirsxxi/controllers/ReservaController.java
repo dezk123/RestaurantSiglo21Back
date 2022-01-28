@@ -30,14 +30,13 @@ public class ReservaController {
     public String crearReserva(@RequestHeader(value = "Authorization") String token, @RequestBody Reserva reserva) throws SQLException {
         if(validarToken(token) == null || !validarToken(token).equals("CLI")) { return null; }
         Connection connection = configuracion();
-        CallableStatement statement = connection.prepareCall("{call SP_INSERTARRESERVA(?,?,?,?,?,?,?)}");
-        statement.setInt("p_idReserva", reserva.getIdReserva());
+        CallableStatement statement = connection.prepareCall("{call SP_INSERTARRESERVA(?,?,?,?,?,?)}");
         statement.setInt("p_idUsuario", reserva.getIdUsuario());
         statement.setString("p_idTipoUsuario", reserva.getTipoUsuario());
         statement.setInt("p_idMesa", reserva.getIdMesa());
         statement.setDate("p_fecha", reserva.getFecha());
         statement.setInt("p_cantidadPersona", reserva.getCantidadPersona());
-        statement.setBoolean("p_estado", reserva.isEstado());
+        statement.setString("p_estado", reserva.getEstado());
         statement.execute();
         connection.close();
         return "Reserva creada";
@@ -50,7 +49,7 @@ public class ReservaController {
         Connection connection = configuracion();
         CallableStatement statement = connection.prepareCall("{call SP_ELIMINARRESERVA(?,?)}");
         statement.setInt("p_idReserva", reserva.getIdReserva());
-        statement.setBoolean("p_estado", reserva.isEstado());
+        statement.setString("p_estado", reserva.getEstado());
         statement.execute();
         connection.close();
         return "Reserva cancelada";
@@ -68,7 +67,7 @@ public class ReservaController {
         statement.setInt("p_idMesa",reserva.getIdMesa());
         statement.setInt("p_idUsuario", reserva.getIdUsuario());
         statement.setString("p_idTipoUsuario", reserva.getTipoUsuario());
-        statement.setBoolean("p_estado", reserva.isEstado());
+        statement.setString("p_estado", reserva.getEstado());
         statement.execute();
         connection.close();
         return "Reserva Actualizada";
@@ -118,7 +117,7 @@ public class ReservaController {
                 resultSet.getInt(4),
                 resultSet.getInt(5),
                 resultSet.getString(6),
-                resultSet.getBoolean(7)
+                resultSet.getString(7)
             );
             reservas.add(reserva);
         }
