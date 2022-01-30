@@ -47,9 +47,8 @@ public class ReservaController {
     public String cancelarReserva(@RequestHeader(value = "Authorization") String token, @RequestBody Reserva reserva) throws SQLException {
         if(validarToken(token) == null || !validarToken(token).equals("CLI")) { return null; }
         Connection connection = configuracion();
-        CallableStatement statement = connection.prepareCall("{call SP_ELIMINARRESERVA(?,?)}");
+        CallableStatement statement = connection.prepareCall("{call SP_ELIMINARRESERVA(?)}");
         statement.setInt("p_idReserva", reserva.getIdReserva());
-        statement.setString("p_estado", reserva.getEstado());
         statement.execute();
         connection.close();
         return "Reserva cancelada";
