@@ -32,7 +32,7 @@ public class AutenticacionController {
     Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
     if(argon2.verify(aux.getContrasena(), login.getContrasena())){
       // retornar token
-      User user = new User(aux.getNombre(), jwtUtil.create(aux.getCorreo(), aux.getIdTipoUsuario()));
+      User user = new User(aux.getNombre(), jwtUtil.create(aux.getCorreo(), aux.getIdTipoUsuario()),aux.getIdUsuario() );
       return user;
     }
     return null;

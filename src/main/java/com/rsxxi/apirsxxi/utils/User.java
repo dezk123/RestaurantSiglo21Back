@@ -10,8 +10,12 @@ public class User {
   @Getter @Setter
   private String token;
 
-  public User(String nombre, String token) {
+  @Getter @Setter
+  private int idUsuario;
+
+  public User(String nombre, String token, int idUsuario) {
     this.nombre = nombre;
     this.token = token;
+    this.idUsuario = idUsuario;
   }
 }

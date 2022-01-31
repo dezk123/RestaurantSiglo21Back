@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = {"https://localhost:44379", "https://localhost:44379"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
@@ -99,9 +101,9 @@ public class ReservaController {
 
     // Obtener reservas por id de usuario
     @RequestMapping(value = "api/reservas/{id}", method = RequestMethod.GET)
-    public List<Reserva> obtenerReservaId(@RequestHeader(value = "Authorization") String token, @PathVariable int id) throws SQLException {
+    public List<Map<String,String>> obtenerReservaId(@RequestHeader(value = "Authorization") String token, @PathVariable int id) throws SQLException {
         if(validarToken(token) == null || !validarToken(token).equals("CLI")) { return null; }
-        List<Reserva> reservas = new ArrayList<>();
+        List<Map<String,String>> reservas = new ArrayList<>();
         Connection connection = configuracion();
         CallableStatement statement = connection.prepareCall("{? = call FN_LISTARRESERVAID(?)}");
         statement.registerOutParameter(1, Types.REF_CURSOR);
@@ -109,16 +111,18 @@ public class ReservaController {
         statement.execute();
         ResultSet resultSet = (ResultSet) statement.getObject(1);
         while (resultSet.next()) {
-            Reserva reserva = new Reserva(
-                resultSet.getInt(1),
-                resultSet.getInt(2),
-                resultSet.getDate(3),
-                resultSet.getInt(4),
-                resultSet.getInt(5),
-                resultSet.getString(6),
-                resultSet.getString(7)
-            );
+            Map<String,String> reserva = new HashMap<>();
+            reserva.put("idReserva",Integer.toString(resultSet.getInt(1)));
+            reserva.put("cantidadPersona",Integer.toString(resultSet.getInt(2)));
+            reserva.put("fecha",resultSet.getDate(3).toString());
+            reserva.put("idMesa",Integer.toString(resultSet.getInt(4)));
+            reserva.put("idUsuario",resultSet.getString(5));
+            reserva.put("idTipoUsuario",resultSet.getString(6));
+            reserva.put("estado",resultSet.getString(7));
+            reserva.put("Nombre",resultSet.getString(8));
+
             reservas.add(reserva);
+
         }
         return reservas;
     }
