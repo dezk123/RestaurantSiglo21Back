@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = {"https://localhost:44379", "https://localhost:44379"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
+@CrossOrigin(origins = {"https://localhost:5001/", "http://localhost:5000/"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
 public class PedidoPlatoController {
   @Autowired
   private JWTUtil jwtUtil;
