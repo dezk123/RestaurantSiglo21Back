@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.*;
 
 @RestController
-@CrossOrigin(origins = {"https://localhost:44379/", "http://localhost:44379/"}, methods = { RequestMethod.POST })
+@CrossOrigin(origins = {"https://localhost:5001", "http://localhost:5000"}, methods = { RequestMethod.POST })
 public class AutenticacionController {
 
   private Connection configuracion() throws SQLException {

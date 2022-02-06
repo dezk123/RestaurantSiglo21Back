@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = {"https://localhost:44379", "https://localhost:44379"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
+@CrossOrigin(origins = {"https://localhost:5001", "http://localhost:5000"}, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT})
 public class ReservaController {
     @Autowired
     private JWTUtil jwtUtil;
