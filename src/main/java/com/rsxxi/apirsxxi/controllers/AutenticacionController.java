@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = {"https://localhost:5001/", "http://localhost:5000/"}, methods = { RequestMethod.POST })
+@CrossOrigin(origins = {"https://localhost:3000/", "http://localhost:3000/"}, methods = { RequestMethod.POST })
 public class AutenticacionController {
 
   private Connection configuracion() throws SQLException {
