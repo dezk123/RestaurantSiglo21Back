@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,12 +47,12 @@ public class ReservaController {
     }
 
     // Cancelar reserva
-    @RequestMapping(value = "api/cliente/cancelar-reserva", method = RequestMethod.PUT)
-    public String cancelarReserva(@RequestHeader(value = "Authorization") String token, @RequestBody Reserva reserva) throws SQLException {
+    @RequestMapping(value = "api/cliente/cancelar-reserva/{id}", method = RequestMethod.PUT)
+    public String cancelarReserva(@RequestHeader(value = "Authorization") String token, @PathVariable int id) throws SQLException {
         if(validarToken(token) == null || !validarToken(token).equals("CLI")) { return null; }
         Connection connection = configuracion();
         CallableStatement statement = connection.prepareCall("{call SP_ELIMINARRESERVA(?)}");
-        statement.setInt("p_idReserva", reserva.getIdReserva());
+        statement.setInt("p_idReserva", id);
         statement.execute();
         connection.close();
         return "Reserva cancelada";
